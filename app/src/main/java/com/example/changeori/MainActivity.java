@@ -1,14 +1,16 @@
 package com.example.changeori;
 
-import android.content.pm.ActivityInfo;
-import android.media.Image;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+
+import es.dmoral.toasty.Toasty;
+
 
 public class MainActivity extends AppCompatActivity implements ListFragment.ArticleListener{
 
@@ -29,8 +31,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Arti
                     .hide(manager.findFragmentById(R.id.detailFragment))
                     .show(manager.findFragmentById(R.id.listFragment))
                     .commit();
-        }
+            Toasty.success(this, "Portrait!", Toast.LENGTH_LONG, true).show();
 
+        }
         if (findViewById(R.id.layout_land)!=null)
         {
             FragmentManager manager = this.getSupportFragmentManager();
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Arti
                     .show(manager.findFragmentById(R.id.detailFragment))
                     .show(manager.findFragmentById(R.id.listFragment))
                     .commit();
+            Toasty.success(this, "Landscape!", Toast.LENGTH_SHORT, true).show();
         }
     }
 
@@ -52,10 +56,11 @@ public class MainActivity extends AppCompatActivity implements ListFragment.Arti
                     .addToBackStack(null)
                     .commit();
         }
+        Toasty.info(this, "article selected", Toast.LENGTH_SHORT, true).show();
         String [] News = getResources().getStringArray(R.array.News);
         String [] Images = getResources().getStringArray(R.array.images);
-        Picasso.get().load("https://image.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-260nw-407021107.jpg")
-                .resize(500,500).into(ivDetails);
+        //Picasso.get().load("https://image.shutterstock.com/image-photo/mountains-during-sunset-beautiful-natural-260nw-407021107.jpg")
+              //  .resize(500,500).into(ivDetails);
         tvDetails.setText(News[index]);
     }
 }
